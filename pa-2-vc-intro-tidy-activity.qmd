@@ -170,7 +170,11 @@ Next, carry out the following steps:
 #| label: add-label-4
 #add comment here
 
-
+code_matrix <- code_break |> 
+  pull(step9) |> 
+  matrix(ncol = 5) |> 
+  as_tibble(column_name = "V") |> 
+  mutate(id = row_number())
   
 ```
 
@@ -190,6 +194,16 @@ evens <- seq(from = 2, to = 382, by = 2)
 ```{r}
 #| label: add-label-6
 #add comment here
+
+code_vector <- code_matrix |> 
+  mutate(V1 = V1 - evens) |> 
+  mutate(V3 = if_else(id %in% 18:24, V3 - 100, V3)) |> 
+  mutate(V4 = V4*2, 
+         V5 = V5*2) |> 
+  select(-id) |> 
+  pivot_longer(V1:V5, names_to = "column", values_to = "code") |> 
+  arrange(column) |> 
+  mutate(id = row_number())
 
 ```
 
