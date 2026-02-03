@@ -93,15 +93,10 @@ If you want to look at `my_symbols` click on it under the Environment Tab in the
 #| label: created-symbols-dataframe
 # clean, rename, and assign numbers for symbols dataframe
 
-my_symbols <- c(lower_case, punctuation, upper_case)
-
-symbols <- data.frame("symbol" = my_symbols)
-
-total_symbols <- length(symbols$symbol)
-
-number <- seq(1, total_symbols, 1)
-
-symbols$assign_number <- number
+my_symbols <- tibble(symbols = c(lower_case, 
+                                 upper_case, 
+                                 punctuation)) |> 
+              mutate(num = row_number()) 
 
 ```
 
@@ -215,6 +210,9 @@ code_vector <- code_matrix |>
 #| label: add-label-7
 #code to verify that indices 500 and beyond have values **below** 100
 
+code_vector |> 
+  summarize(beyond = sum(if_else(id %in% 500:max(id) >= 100, TRUE, FALSE)))
+
 ```
 
 <!-- Computer Stage your Changes, Commit, and Push to the Git Repository-->
@@ -228,6 +226,11 @@ code_vector <- code_matrix |>
 #| label: add-label-8
 #add comment here
 
+code_vector_update <- code_vector |> 
+  mutate(code = if_else(id %in% 38:465, sqrt(code), code)) |> 
+  mutate(code = round(code, digits = 0)) |> 
+  mutate(code = if_else(code == 39, 20, code))
+
 ```
 
 
@@ -240,7 +243,8 @@ code_vector <- code_matrix |>
 #| label: add-label-9
 # Code to verify how many even numbers are in your top_secret vector
 
-
+code_vector_update |> 
+  summarize(even = sum(code %% 2 == 0))
 ```
 
 <!-- Computer Stage your Changes, Commit, and Push to the Git Repository-->
@@ -254,6 +258,10 @@ Use your final vector of numbers as indices for my_symbols to discover the final
 #| label: add-label-10
 # add comment here
 
+code_vector_update |> 
+  left_join(my_symbols, by = c("code" = "num")) |> 
+  pull(symbols) |> 
+  stringr::str_c(collapse = "")
 ```
 
 Google the first line of this message, if you do not recognize it, to see what poem it is.
