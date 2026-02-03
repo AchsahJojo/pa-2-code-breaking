@@ -90,8 +90,8 @@ Using the above, we can complete the following 5 steps within a few lines of cod
 If you want to look at `my_symbols` click on it under the Environment Tab in the top right panel.  
 
 ```{r}
-#| label: add-label-1
-# add comment here
+#| label: created-symbols-dataframe
+# clean, rename, and assign numbers for symbols dataframe
 
 my_symbols <- c(lower_case, punctuation, upper_case)
 
@@ -132,12 +132,18 @@ By altering this top secret set of numbers, you will be able to create a message
 9.  Square every number.
 
 ```{r}
-#| label: add-label-2
-#add comment here
+#| label: add-mutlitply-exponentiate-square
+# arithmetic for the top_secret values
 #there are several ways to do this, the way below doesn't overwrite any column so you "don't lose work"
 
+code_break <- top_secret |> 
+  as_tibble() |> 
+  mutate(step6 = top_secret + 14,
+         step7 = step6*18 - 257,
+         step8 = exp(step7),
+         step9 = step8^2)
 
-
+head(code_break) #see the first few lines here
 ```
 
 **Checkpoint:** Headquarters has informed you that at this stage of decoding, there should be 352 numbers in the secret message that are below 17. Write the code to verify that this is true for your `top_secret` object!
@@ -148,7 +154,8 @@ By altering this top secret set of numbers, you will be able to create a message
 #| label: add-label-3
 #add comment here
 
-
+code_break |> 
+  summarize(total = sum(step9 < 17))
 
 ```
 
@@ -162,6 +169,7 @@ Next, carry out the following steps:
 ```{r}
 #| label: add-label-4
 #add comment here
+
 
   
 ```
