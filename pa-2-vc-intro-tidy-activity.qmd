@@ -12,12 +12,6 @@ execute:
 **NAMES:** Achsah, Cameron 
 
 
-```{r}
-#| label: load-packages
-# this code chunk loads the tidyverse package
-
-library(tidyverse)
-```
 
 Today you will be creating and manipulating vectors, lists, and data frames to uncover a top secret message using the `tidyverse`. First thing is to include the package in a setup chunk above!  
 
@@ -63,11 +57,18 @@ In your activity, each of the following R chunks will cause an error and / or do
 
 0. Add a `setup` code chunk to your activity that loads the `tidyverse` package and hides the code output.  
 
+```{r}
+#| label: load-packages
+#| echo: FALSE
+# this code chunk loads the tidyverse package
+
+library(tidyverse)
+```
 
 1.  Create vectors containing the upper case letters, lower case letters, and some punctuation marks. add a label that indicate this code chunk creates the vectors of letters and punctuation.
 
 ```{r}
-#| label: create-vectors
+#| label: create-vectors-add-letters-punch
 
 lower_case <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
                 "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
@@ -76,7 +77,6 @@ upper_case <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                 "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
 punctuation <- c(".", ",", "!", "?", "'", '"', "(", ")", " ", "-", ";", ":")
-
 ```
 
 
@@ -93,6 +93,15 @@ If you want to look at `my_symbols` click on it under the Environment Tab in the
 #| label: add-label-1
 # add comment here
 
+my_symbols <- c(lower_case, punctuation, upper_case)
+
+symbols <- data.frame("symbol" = my_symbols)
+
+total_symbols <- length(symbols$symbol)
+
+number <- seq(1, total_symbols, 1)
+
+symbols$assign_number <- number
 
 ```
 
